@@ -1,23 +1,15 @@
 #!/usr/bin/python3
-"""
-Module defining the Amenity class, a subclass of BaseModel.
-"""
+""" State Module for HBNB project """
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+from models.place import association_table
 
-from models.base_model import BaseModel
 
-
-class Amenity(BaseModel):
-    """
-    Manages Amenity objects, which represent various amenities
-    available in a system.
-    """
-
-    name:
-        str = ''
-
-    """
-    Placeholder for the name attribute of the Amenity class.
-    Please provide a meaningful name for each Amenity object
-    created. This class inherits from BaseModel, which encapsulates
-    common attributes and methods for all objects in the system.
-   """
+class Amenity(BaseModel, Base):
+    """Amenity model of hbnb project"""
+    __tablename__ = "amenities"
+    name = Column(String(128), nullable=False)
+    place_amenities = relationship(
+        "Place",
+        secondary=association_table,)
